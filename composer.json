@@ -1,0 +1,23 @@
+{
+    "name": "masha-i-medvedi/auth-token",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Oleg Lobach",
+            "email": "oleg@lobach.info",
+            "role": "Developer",
+            "homepage": "http://lobach.info"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "gedmo/doctrine-extensions": "dev-master",
+        "bladeofsteel/zfc-user-doctrine-mongo-odm": "@dev"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    }
+}
