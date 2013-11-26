@@ -4,8 +4,10 @@ namespace AuthToken;
 return array(
     'service_manager' => array(
         'invokables' => array(
-            'AuthToken\Model\AuthToken' => 'AuthToken\Model\AuthToken',
             'AuthToken\Entity\AuthToken' => 'AuthToken\Entity\AuthToken',
+        ),
+        'factories' => array(
+            'AuthToken\Model\AuthToken' => 'AuthToken\ModelFactory',
         ),
     ),
     'doctrine' => array(
