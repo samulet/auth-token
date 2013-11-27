@@ -25,11 +25,19 @@ class AuthToken
      * Создает и сохраняет в хранилище новый токен
      *
      * @param \User\Entity\User $user
+     * @param bool $force
      *
      * @return AuthToken
      */
-    public function create(User $user)
+    public function create(User $user, $force = false)
     {
+        if (!$force) {
+            $entity = $this->fetch($user);
+            if (null !== $entity) {
+                return $entity;
+            }
+        }
+
         $entity = new AuthTokenEntity();
         $entity->setUser($user);
         $entity->setToken(Hmac::compute(uniqid(rand(), true), 'sha256', $user->getEmail()));
