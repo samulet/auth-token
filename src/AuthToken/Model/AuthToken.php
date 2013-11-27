@@ -41,20 +41,21 @@ class AuthToken
     }
 
     /**
-     * Возвращает сущность по символьному представлению токена
+     * Возвращает сущность по символьному представлению токена или сущности пользователя
      *
-     * @param string $token
+     * @param string|\User\Entity\User $value Искомое значение. Может быть токеном либо User-entity
      *
      * @return \AuthToken\Entity\AuthToken|null
      */
-    public function fetch($token)
+    public function fetch($value)
     {
-        return $this->documentManager
-                    ->createQueryBuilder('AuthToken\Entity\AuthToken')
-                    ->field('token')->equals($token)
-                    ->field('deletedAt')->equals(null)
-                    ->getQuery()
-                    ->getSingleResult();
+        $builder = $this->documentManager->createQueryBuilder('AuthToken\Entity\AuthToken');
+        if ($value instanceof User) {
+            $builder->field('user')->equals($value->getId());
+        } else {
+            $builder->field('token')->equals($value);
+        }
+        return $builder->field('deletedAt')->equals(null)->getQuery()->getSingleResult();
     }
 
     /**
